@@ -1,6 +1,6 @@
 package model
 
-// Video 数据库Video数据映射模型
+// VideoDB 数据库Video数据映射模型
 type VideoDB struct {
 	Id            uint64 `gorm:"column:id;autoIncrement;primaryKey"`
 	AuthorId      uint64 `gorm:"column:author_id"`
@@ -11,7 +11,7 @@ type VideoDB struct {
 	CreateTime    int64  `gorm:"column:create_time"`
 }
 
-// VideoInfo 返回给用户的Video信息
+// Video 返回给用户的Video信息
 type Video struct {
 	Id            uint64 `json:"id"`
 	Author        User   `json:"author"`

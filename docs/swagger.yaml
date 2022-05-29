@@ -1,0 +1,419 @@
+basePath: /douyin
+definitions:
+  controller.CommentListResponse:
+    properties:
+      comment_list:
+        items:
+          $ref: '#/definitions/model.Comment'
+        type: array
+      status_code:
+        type: integer
+      status_msg:
+        type: string
+    type: object
+  controller.FeedResponse:
+    properties:
+      next_time:
+        type: integer
+      status_code:
+        type: integer
+      status_msg:
+        type: string
+      video_list:
+        items:
+          $ref: '#/definitions/model.Video'
+        type: array
+    type: object
+  controller.ResponseData:
+    properties:
+      status_code:
+        type: integer
+      status_msg:
+        type: string
+      user_list:
+        items:
+          $ref: '#/definitions/model.User'
+        type: array
+    type: object
+  controller.UserLoginResponse:
+    properties:
+      status_code:
+        type: integer
+      status_msg:
+        type: string
+      token:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  controller.UserResponse:
+    properties:
+      status_code:
+        type: integer
+      status_msg:
+        type: string
+      user:
+        $ref: '#/definitions/model.User'
+    type: object
+  controller.VideoListResponse:
+    properties:
+      status_code:
+        type: integer
+      status_msg:
+        type: string
+      video_list:
+        items:
+          $ref: '#/definitions/model.Video'
+        type: array
+    type: object
+  model.Comment:
+    properties:
+      content:
+        type: string
+      create_date:
+        type: string
+      id:
+        type: integer
+      user:
+        $ref: '#/definitions/model.User'
+    type: object
+  model.Response:
+    properties:
+      status_code:
+        type: integer
+      status_msg:
+        type: string
+    type: object
+  model.User:
+    properties:
+      follow_count:
+        type: integer
+      follower_count:
+        type: integer
+      id:
+        type: integer
+      is_follow:
+        type: boolean
+      name:
+        type: string
+    type: object
+  model.Video:
+    properties:
+      author:
+        $ref: '#/definitions/model.User'
+      comment_count:
+        type: integer
+      cover_url:
+        type: string
+      favorite_count:
+        type: integer
+      id:
+        type: integer
+      is_favorite:
+        type: boolean
+      play_url:
+        type: string
+    type: object
+host: 127.0.0.1:8080
+info:
+  contact:
+    name: 8888组全体成员
+  description: 字节第三届青训营抖音项目
+  title: 8888组-抖音项目接口文档
+  version: "1.0"
+paths:
+  /comment/action/:
+    post:
+      consumes:
+      - application/json
+      description: 登录用户对视频进行评论
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.CommentListResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 评论接口
+      tags:
+      - 扩展接口-I
+  /comment/list/:
+    get:
+      consumes:
+      - application/json
+      description: 查看视频的所有评论
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.CommentListResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 视频评论列表接口
+      tags:
+      - 扩展接口-I
+  /favorite/action/:
+    post:
+      consumes:
+      - application/json
+      description: 登录用户对视频的点赞或取消点赞操作
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 点赞接口
+      tags:
+      - 扩展接口-I
+  /favorite/list/:
+    get:
+      consumes:
+      - application/json
+      description: 所有登录用户的点赞视频
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.VideoListResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取所有点赞视频接口
+      tags:
+      - 扩展接口-I
+  /feed/:
+    get:
+      consumes:
+      - application/json
+      description: 不限制登录状态，返回按投稿时间倒序的视频列表
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.FeedResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 视频流接口
+      tags:
+      - 基本接口
+  /publish/action/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 发布视频接口
+      tags:
+      - 基本接口
+  /publish/list/:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.VideoListResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取视频列表接口
+      tags:
+      - 基本接口
+  /relation/action:
+    post:
+      consumes:
+      - application/json
+      description: 登录用户对其他用户进行关注或取关
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 关系操作接口
+      tags:
+      - 扩展接口-II
+  /relation/follow/list/:
+    get:
+      consumes:
+      - application/json
+      description: 登录用户关注的所有用户列表
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取关注列表接口
+      tags:
+      - 扩展接口-II
+  /relation/follower/list/:
+    get:
+      consumes:
+      - application/json
+      description: 所有关注登录用户的粉丝列表
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取粉丝列表接口
+      tags:
+      - 扩展接口-II
+  /user/:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.UserResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取当前登录用户接口
+      tags:
+      - 基本接口
+  /user/login/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.UserLoginResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户登录接口
+      tags:
+      - 基本接口
+  /user/register/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.UserLoginResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户注册接口
+      tags:
+      - 基本接口
+swagger: "2.0"

@@ -1,6 +1,7 @@
 package service
 
 import (
+	"log"
 	"os/exec"
 	"time"
 
@@ -20,9 +21,10 @@ func Publish(saveFile string, fileName string, user model.User) (bool, string) {
 	saveJPG := saveFile + ".jpg"
 	cmd := exec.Command("ffmpeg", "-i", saveFile, "-vframes", "1", saveJPG)
 	if err := cmd.Run(); err != nil {
+		log.Println("run false")
 		return false, err.Error()
 	}
-
+	log.Println("run false after")
 	postVideo := model.VideoDB{
 		AuthorId:      user.Id,
 		PlayUrl:       config.SavePath + fileName,

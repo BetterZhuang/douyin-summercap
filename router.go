@@ -3,12 +3,18 @@ package main
 import (
 	"github.com/RaymondCode/simple-demo/controller"
 	"github.com/gin-gonic/gin"
+	gs "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
+
+	_ "github.com/RaymondCode/simple-demo/docs" // 千万不要忘了导入上一步生成的docs
+
+
 )
 
 func initRouter(r *gin.Engine) {
 	// public directory is used to serve static resources
 	r.Static("/static", "./public")
-
+	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 	apiRouter := r.Group("/douyin")
 
 	// basic apis

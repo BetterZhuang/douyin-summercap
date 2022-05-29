@@ -11,7 +11,7 @@ import (
 var SavePath string = "http://" + GetHostIp() + ":8080/static/"
 
 var MysqlUsername string = "root"
-var MysqlPassword string = "123456"
+var MysqlPassword string = "20211017"   //123456
 var MysqlUrl string = "tcp(localhost:3306)/douyin?charset=utf8&parseTime=True&loc=Local"
 
 var Db *gorm.DB
