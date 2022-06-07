@@ -16,11 +16,14 @@ type Claims struct {
 }
 
 func Register(name, password string) (uint64, bool) {
+	//检查是否存在同名用户
 	var count int64
 	config.Db.Model(&model.UserDB{}).Where("username = ?", name).Count(&count)
 	if count > 0 {
 		return 0, false
 	}
+
+	//创建用户实例
 	user := model.UserDB{
 		Name:     name,
 		Username: name,

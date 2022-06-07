@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/RaymondCode/simple-demo/middleware"
 	"net/http"
 	"time"
 
@@ -35,8 +36,11 @@ type UserResponse struct {
 func Register(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
-	// token := username + password
-	uid, ok := service.Register(username, password)
+
+	//密码加盐存储
+	md5Password := middleware.MD5_SALT(password)
+
+	uid, ok := service.Register(username, md5Password)
 	if !ok {
 		println("Register fail")
 		c.JSON(http.StatusOK, UserLoginResponse{
@@ -81,7 +85,10 @@ func Login(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
-	user, ok := service.Login(username, password)
+	//当前登录密码加盐后与db中的密码进行比较
+	md5Password := middleware.MD5_SALT(password)
+
+	user, ok := service.Login(username, md5Password)
 	if !ok {
 		println("Login fail")
 		c.JSON(http.StatusOK, UserLoginResponse{

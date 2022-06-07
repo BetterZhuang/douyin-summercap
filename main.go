@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
+
 // 抖音项目
 
 // @title 8888组-抖音项目接口文档
@@ -38,7 +39,6 @@ func main() {
 
 	r := gin.New()
 	r.Use(logger.GinLogger(), logger.GinRecovery(true)) //记录日志
-
 	initRouter(r)
 	initMysql()
 
