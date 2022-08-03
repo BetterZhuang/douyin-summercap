@@ -19,6 +19,8 @@ const (
 	CodeInvalidToken
 	CodeParseTokenFail
 	CodeOperateFail
+
+	CodeCommentNotExist
 )
 
 var codeMsgmap = map[int32]string{
@@ -29,10 +31,12 @@ var codeMsgmap = map[int32]string{
 	CodeInvalidPassword: "用户名或密码错误",
 	CodeServerBusy:      "服务繁忙",
 
-	CodeNeedLogin:    "需要登录",
-	CodeInvalidToken: "无效的Token",
+	CodeNeedLogin:      "需要登录",
+	CodeInvalidToken:   "无效的Token",
 	CodeParseTokenFail: "解析Token失败",
-	CodeOperateFail: "操作失败",
+	CodeOperateFail:    "操作失败",
+
+	CodeCommentNotExist: "评论内容为空",
 }
 
 // Code2Msg :返回code-msg
