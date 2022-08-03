@@ -22,7 +22,14 @@
 /settings viper读取config配置\
 /docs Swagger接口文档目录
 
+### 测试数据
+
+测试数据写在 demo_data.go 中，用于列表接口的 mock 测试
+
+
 ### 使用swagger生成全局接口文档步骤
+参考李文周博客 ```https://www.liwenzhou.com/posts/Go/golang-menu/```
+
 1.按格式写接口注释\
 2.安装swag工具 ```go install github.com/swaggo/swag/cmd/swag```\
 3.```swag init```生成接口文档```./docs```目录下\
